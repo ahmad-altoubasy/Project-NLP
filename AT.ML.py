@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def estimate_coef(x, y):
+    n = np.size(x)
+    m_x, m_y = np.mean(x), np.mean(y)
+    SS_xy = np.sum(y*x) - n*m_y*m_x
+    SS_xx = np.sum(x*x) - n*m_x*m_x
+    b_1 = SS_xy / SS_xx
+    b_0 = m_y - b_1*m_x
+    return (b_0, b_1)
+
+def plot_regression_line(x, y, b):
+    plt.scatter(x, y, color="m", marker="o", s=30)
+    y_pred = b[0] + b[1]*x
+    plt.plot(x, y_pred, color="g")
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.show()
+
+def main():
+    x = np.array([1, 2, 3, 4, 4, 5, 5, 6, 6, 7])
+    y = np.array([7, 8, 9, 8, 9, 11, 10, 13, 14, 13])
+    b = estimate_coef(x, y)
+    print("w0 =", b[0])
+    print("w1 =", b[1])
+    plot_regression_line(x, y, b)
+
+main()
